@@ -1,0 +1,15 @@
+diff --git a/node_modules/@yarnpkg/plugin-npm/lib/index.js b/node_modules/@yarnpkg/plugin-npm/lib/index.js
+index c17065f..b9f0ab8 100644
+--- a/node_modules/@yarnpkg/plugin-npm/lib/index.js
++++ b/node_modules/@yarnpkg/plugin-npm/lib/index.js
+@@ -12,8 +12,8 @@ const npmConfigUtils = tslib_1.__importStar(require("./npmConfigUtils"));
+ exports.npmConfigUtils = npmConfigUtils;
+ const npmHttpUtils = tslib_1.__importStar(require("./npmHttpUtils"));
+ exports.npmHttpUtils = npmHttpUtils;
+-const npmPublishUtils = tslib_1.__importStar(require("./npmPublishUtils"));
+-exports.npmPublishUtils = npmPublishUtils;
++// const npmPublishUtils = tslib_1.__importStar(require("./npmPublishUtils"));
++// exports.npmPublishUtils = npmPublishUtils;
+ const authSettings = {
+     npmAlwaysAuth: {
+         description: `URL of the selected npm registry (note: npm enterprise isn't supported)`,

@@ -7,12 +7,9 @@
   "module": "dist/yarn-browser.es.js",
   "devDependencies": {
     "@babel/core": "^7.12.10",
-    "@yarnpkg/cli": "^2.4.0",
     "@yarnpkg/core": "^2.4.0",
-    "@yarnpkg/fslib": "^2.4.0",
     "@yarnpkg/plugin-git": "^2.3.0",
     "@yarnpkg/plugin-github": "^2.1.2",
-    "@yarnpkg/plugin-link": "^2.1.1",
     "@yarnpkg/plugin-node-modules": "^2.3.0",
     "@yarnpkg/plugin-npm": "^2.4.0",
     "@yarnpkg/plugin-pack": "^2.2.3",
@@ -28,16 +25,21 @@
   },
   "scripts": {
     "build": "parcel build . --no-source-maps",
+    "build:diag": "BUNDLE_BUDDY=1 yarn parcel build .",
     "test:node": "node test-node.js",
     "test:memfs": "node test-memfs.js",
     "postinstall": "patch-package"
   },
   "alias": {
-    "got": "./polyfills/got.js",
+    "clipanion": "./polyfills/clipanion.js",
     "fs": "./src/fs.cjs",
+    "got": "./polyfills/got.js",
     "url": "./polyfills/url.js",
     "v8": "./polyfills/v8.js",
-    "ci-info": false
+    "@arcanis/slice-ansi": false,
+    "ci-info": false,
+    "elliptic": false,
+    "enquirer": false
   },
   "files": [
     "dist/index.es.js"

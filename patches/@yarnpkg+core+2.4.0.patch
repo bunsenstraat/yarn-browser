@@ -58,3 +58,16 @@ index c720ddd..f0cb0ab 100644
      const certificateAuthority = caFilePath
          ? await getCachedCertificate(caFilePath)
          : undefined;
+diff --git a/node_modules/@yarnpkg/core/lib/scriptUtils.js b/node_modules/@yarnpkg/core/lib/scriptUtils.js
+index bae40a9..ee51aae 100644
+--- a/node_modules/@yarnpkg/core/lib/scriptUtils.js
++++ b/node_modules/@yarnpkg/core/lib/scriptUtils.js
+@@ -5,7 +5,7 @@ const tslib_1 = require("tslib");
+ const fslib_1 = require("@yarnpkg/fslib");
+ const fslib_2 = require("@yarnpkg/fslib");
+ const libzip_1 = require("@yarnpkg/libzip");
+-const shell_1 = require("@yarnpkg/shell");
++// const shell_1 = require("@yarnpkg/shell");
+ const binjumper_1 = require("binjumper");
+ const capitalize_1 = tslib_1.__importDefault(require("lodash/capitalize"));
+ const p_limit_1 = tslib_1.__importDefault(require("p-limit"));

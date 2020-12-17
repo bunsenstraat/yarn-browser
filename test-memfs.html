@@ -12,6 +12,8 @@
 				{
 					dependencies: {
 						"lodash-es": "^4.17.15",
+						react: "latest",
+						"react-dom": "latest",
 					},
 				},
 				null,
@@ -23,8 +25,20 @@
 
 		console.log("Starting Yarn");
 		console.time("Finished");
-		await run({ dir, fs: memfs });
+		let { report, messages } = await run({ dir, fs: memfs });
 		console.timeEnd("Finished");
+
+		console.log(report);
+		for (let { type, indent, data, displayName } of messages) {
+			let msg = `[${displayName}] ${indent} ${data}`;
+			console.log(
+				"%c" + msg,
+				`color: ${
+					type === "error" ? "red" : "white"
+				}; font-family: monospace;`
+			);
+		}
+		if (report.reportedErrors.size > 0) throw [...report.reportedErrors][0];
 
 		console.log(memfs.readdirSync("/app"));
 		console.log(memfs.readdirSync("/app/node_modules"));
