@@ -1,0 +1,18 @@
+diff --git a/node_modules/@yarnpkg/pnpify/lib/index.js b/node_modules/@yarnpkg/pnpify/lib/index.js
+index b82b327..c95946f 100644
+--- a/node_modules/@yarnpkg/pnpify/lib/index.js
++++ b/node_modules/@yarnpkg/pnpify/lib/index.js
+@@ -11,11 +11,11 @@ Object.defineProperty(exports, "getArchivePath", { enumerable: true, get: functi
+ const buildNodeModulesTree_2 = require("./buildNodeModulesTree");
+ Object.defineProperty(exports, "buildNodeModulesTree", { enumerable: true, get: function () { return buildNodeModulesTree_2.buildNodeModulesTree; } });
+ Object.defineProperty(exports, "buildLocatorMap", { enumerable: true, get: function () { return buildNodeModulesTree_2.buildLocatorMap; } });
+-const dynamicRequire_1 = require("./dynamicRequire");
++// const dynamicRequire_1 = require("./dynamicRequire");
+ let fsPatched = false;
+ let pnp;
+ try {
+-    pnp = dynamicRequire_1.dynamicRequire(`pnpapi`);
++    // pnp = dynamicRequire_1.dynamicRequire(`pnpapi`);
+ }
+ catch (e) {
+ }

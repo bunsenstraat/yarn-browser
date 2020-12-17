@@ -1,0 +1,15 @@
+diff --git a/node_modules/@yarnpkg/cli/lib/main.js b/node_modules/@yarnpkg/cli/lib/main.js
+index 36e8a07..7d33c36 100644
+--- a/node_modules/@yarnpkg/cli/lib/main.js
++++ b/node_modules/@yarnpkg/cli/lib/main.js
+@@ -93,8 +93,8 @@ async function main({ binaryVersion, pluginConfiguration }) {
+             }
+         }
+         else {
+-            if (ignorePath)
+-                delete process.env.YARN_IGNORE_PATH;
++            // if (ignorePath)
++            //     delete process.env.YARN_IGNORE_PATH;
+             const isTelemetryEnabled = configuration.get(`enableTelemetry`);
+             if (isTelemetryEnabled && !ci_info_1.isCI && process.stdout.isTTY)
+                 core_1.Configuration.telemetry = new core_1.TelemetryManager(configuration, `puba9cdc10ec5790a2cf4969dd413a47270`);

@@ -1,0 +1,67 @@
+diff --git a/node_modules/@yarnpkg/libzip/.DS_Store b/node_modules/@yarnpkg/libzip/.DS_Store
+new file mode 100644
+index 0000000..f9f60d0
+Binary files /dev/null and b/node_modules/@yarnpkg/libzip/.DS_Store differ
+diff --git a/node_modules/@yarnpkg/libzip/lib/async.js b/node_modules/@yarnpkg/libzip/lib/async.js
+index c0ee807..00219a0 100644
+--- a/node_modules/@yarnpkg/libzip/lib/async.js
++++ b/node_modules/@yarnpkg/libzip/lib/async.js
+@@ -10,7 +10,7 @@ exports.getLibzipSync = getLibzipSync;
+ async function getLibzipPromise() {
+     if (promise === null) {
+         promise = new Promise(resolve => {
+-            require(`./libzipAsync`).then((libzip) => {
++            require('./libzipAsync').then((libzip) => {
+                 resolve(makeInterface_1.makeInterface(libzip));
+             });
+         });
+diff --git a/node_modules/@yarnpkg/libzip/lib/libzipAsync.js b/node_modules/@yarnpkg/libzip/lib/libzipAsync.js
+index 09b4050..b0c6487 100644
+--- a/node_modules/@yarnpkg/libzip/lib/libzipAsync.js
++++ b/node_modules/@yarnpkg/libzip/lib/libzipAsync.js
+@@ -510,8 +510,7 @@ function createWasm() {
+       return false;
+     }
+   }
+-  instantiateAsync();
+-  return {};
++  return instantiateAsync();
+ }
+ var tempDouble;
+ var tempI64;
+@@ -1327,7 +1326,7 @@ var ERRNO_CODES = {
+ var NODEFS = {
+   isWindows: false,
+   staticInit: function() {
+-    NODEFS.isWindows = !!process.platform.match(/^win/);
++    NODEFS.isWindows = false;
+     var flags = { fs: fs.constants };
+     if (flags["fs"]) {
+       flags = flags["fs"];
+@@ -4278,6 +4277,13 @@ var asmLibraryArg = {
+   o: _timegm
+ };
+ var asm = createWasm();
++Module.then = function (a) {
++  asm.then(function () {
++    delete Module.then;
++    a(Module);
++  });
++};
++
+ var ___wasm_call_ctors = (Module["___wasm_call_ctors"] = function() {
+   return (___wasm_call_ctors = Module["___wasm_call_ctors"] =
+     Module["asm"]["x"]).apply(null, arguments);
+diff --git a/node_modules/@yarnpkg/libzip/lib/libzipSync.js b/node_modules/@yarnpkg/libzip/lib/libzipSync.js
+index fc62f35..da7f2a0 100644
+--- a/node_modules/@yarnpkg/libzip/lib/libzipSync.js
++++ b/node_modules/@yarnpkg/libzip/lib/libzipSync.js
+@@ -1296,7 +1296,7 @@ var ERRNO_CODES = {
+ var NODEFS = {
+   isWindows: false,
+   staticInit: function() {
+-    NODEFS.isWindows = !!process.platform.match(/^win/);
++    NODEFS.isWindows = false;
+     var flags = { fs: fs.constants };
+     if (flags["fs"]) {
+       flags = flags["fs"];

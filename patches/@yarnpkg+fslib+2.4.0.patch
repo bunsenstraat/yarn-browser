@@ -1,0 +1,13 @@
+diff --git a/node_modules/@yarnpkg/fslib/lib/ZipOpenFS.js b/node_modules/@yarnpkg/fslib/lib/ZipOpenFS.js
+index caa1dc6..d7cdf3e 100644
+--- a/node_modules/@yarnpkg/fslib/lib/ZipOpenFS.js
++++ b/node_modules/@yarnpkg/fslib/lib/ZipOpenFS.js
+@@ -701,7 +701,7 @@ class ZipOpenFS extends FakeFS_1.BasePortableFakeFS {
+             this.limitOpenFilesTimeout = setTimeout(() => {
+                 this.limitOpenFilesTimeout = null;
+                 this.limitOpenFiles(null);
+-            }, nextExpiresAt - now).unref();
++            }, nextExpiresAt - now);
+         }
+     }
+     async getZipPromise(p, accept) {

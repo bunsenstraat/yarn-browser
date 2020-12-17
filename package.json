@@ -1,0 +1,54 @@
+{
+  "type": "module",
+  "name": "@mischnic/yarn-browser",
+  "version": "0.0.1",
+  "license": "MIT",
+  "source": "src/index.js",
+  "module": "dist/yarn-browser.es.js",
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@yarnpkg/cli": "^2.4.0",
+    "@yarnpkg/core": "^2.4.0",
+    "@yarnpkg/fslib": "^2.4.0",
+    "@yarnpkg/plugin-git": "^2.3.0",
+    "@yarnpkg/plugin-github": "^2.1.2",
+    "@yarnpkg/plugin-link": "^2.1.1",
+    "@yarnpkg/plugin-node-modules": "^2.3.0",
+    "@yarnpkg/plugin-npm": "^2.4.0",
+    "@yarnpkg/plugin-pack": "^2.2.3",
+    "@yarnpkg/plugin-pnp": "^2.4.0",
+    "memfs": "^3.2.0",
+    "parcel": "^2.0.0-nightly.481",
+    "patch-package": "^6.2.2",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.3"
+  },
+  "targets": {
+    "module": {
+      "includeNodeModules": true
+    }
+  },
+  "scripts": {
+    "build": "parcel build . --no-source-maps",
+    "test:node": "node test-node.js",
+    "test:memfs": "node test-memfs.js",
+    "postinstall": "patch-package"
+  },
+  "alias": {
+    "got": "./polyfills/got.js",
+    "fs": "./src/fs.cjs",
+    "url": "./polyfills/url.js",
+    "v8": "./polyfills/v8.js",
+    "ci-info": false
+  },
+  "files": [
+    "dist/index.es.js"
+  ],
+  "browserslist": "Chrome 75",
+  "resolutions": {
+    "semver": "7.3.4"
+  },
+  "dependencies": {
+    "@msgpack/msgpack": "^2.3.0"
+  }
+}

@@ -1,0 +1,30 @@
+diff --git a/node_modules/@yarnpkg/plugin-node-modules/lib/index.js b/node_modules/@yarnpkg/plugin-node-modules/lib/index.js
+index 607d663..93e80cf 100644
+--- a/node_modules/@yarnpkg/plugin-node-modules/lib/index.js
++++ b/node_modules/@yarnpkg/plugin-node-modules/lib/index.js
+@@ -5,7 +5,7 @@ const core_1 = require("@yarnpkg/core");
+ const fslib_1 = require("@yarnpkg/fslib");
+ const pnpify_1 = require("@yarnpkg/pnpify");
+ const NodeModulesLinker_1 = require("./NodeModulesLinker");
+-const PnpLooseLinker_1 = require("./PnpLooseLinker");
++// const PnpLooseLinker_1 = require("./PnpLooseLinker");
+ const getPnpPath = (project) => fslib_1.ppath.join(project.cwd, `.pnp.js`);
+ exports.getPnpPath = getPnpPath;
+ const plugin = {
+@@ -20,10 +20,15 @@ const plugin = {
+             ],
+             default: `none`,
+         },
++        nodeLinker: {
++            description: `The linker used for installing Node packages, one of: "pnp", "node-modules"`,
++            type: core_1.SettingsType.STRING,
++            default: `node-modules`,
++        }
+     },
+     linkers: [
+         NodeModulesLinker_1.NodeModulesLinker,
+-        PnpLooseLinker_1.PnpLooseLinker,
++        // PnpLooseLinker_1.PnpLooseLinker,
+     ],
+ };
+ // eslint-disable-next-line arca/no-default-export

@@ -1,0 +1,47 @@
+diff --git a/node_modules/@yarnpkg/core/lib/Configuration.js b/node_modules/@yarnpkg/core/lib/Configuration.js
+index 108c033..f3ff070 100644
+--- a/node_modules/@yarnpkg/core/lib/Configuration.js
++++ b/node_modules/@yarnpkg/core/lib/Configuration.js
+@@ -190,7 +190,7 @@ exports.coreDefinitions = {
+     enableProgressBars: {
+         description: `If true, the CLI is allowed to show a progress bar for long-running events`,
+         type: SettingsType.BOOLEAN,
+-        default: !ci_info_1.isCI && process.stdout.isTTY && process.stdout.columns > 22,
++        default: false, //!ci_info_1.isCI && process.stdout.isTTY && process.stdout.columns > 22,
+         defaultText: `<dynamic>`,
+     },
+     enableTimers: {
+diff --git a/node_modules/@yarnpkg/core/lib/Project.js b/node_modules/@yarnpkg/core/lib/Project.js
+index 345968f..90ce843 100644
+--- a/node_modules/@yarnpkg/core/lib/Project.js
++++ b/node_modules/@yarnpkg/core/lib/Project.js
+@@ -795,7 +795,7 @@ class Project {
+         for (const locatorHash of buildablePackages)
+             readyPackages.delete(locatorHash);
+         const globalHashGenerator = crypto_1.createHash(`sha512`);
+-        globalHashGenerator.update(process.versions.node);
++        // globalHashGenerator.update(process.versions.node);
+         this.configuration.triggerHook(hooks => {
+             return hooks.globalHashGeneration;
+         }, this, (data) => {
+diff --git a/node_modules/@yarnpkg/core/lib/httpUtils.js b/node_modules/@yarnpkg/core/lib/httpUtils.js
+index c720ddd..f0cb0ab 100644
+--- a/node_modules/@yarnpkg/core/lib/httpUtils.js
++++ b/node_modules/@yarnpkg/core/lib/httpUtils.js
+@@ -65,6 +65,7 @@ function getNetworkSettings(target, opts) {
+     return mergedNetworkSettings;
+ }
+ exports.getNetworkSettings = getNetworkSettings;
++var got_1 = tslib_1.__importStar(require('got'));
+ var Method;
+ (function (Method) {
+     Method["GET"] = "GET";
+@@ -104,7 +105,7 @@ async function request(target, body, { configuration, headers, json, jsonRequest
+     const retry = configuration.get(`httpRetry`);
+     const rejectUnauthorized = configuration.get(`enableStrictSsl`);
+     const caFilePath = networkConfig.caFilePath;
+-    const { default: got } = await Promise.resolve().then(() => tslib_1.__importStar(require(`got`)));
++    const { default: got } = got_1;
+     const certificateAuthority = caFilePath
+         ? await getCachedCertificate(caFilePath)
+         : undefined;

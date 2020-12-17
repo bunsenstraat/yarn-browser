@@ -1,0 +1,14 @@
+diff --git a/node_modules/@sindresorhus/is/dist/index.js b/node_modules/@sindresorhus/is/dist/index.js
+index 218db8b..e220bc1 100644
+--- a/node_modules/@sindresorhus/is/dist/index.js
++++ b/node_modules/@sindresorhus/is/dist/index.js
+@@ -405,6 +405,6 @@ Object.defineProperties(exports.assert, {
+ });
+ exports.default = is;
+ // For CommonJS default export support
+-module.exports = is;
+-module.exports.default = is;
+-module.exports.assert = exports.assert;
++// module.exports = is;
++// module.exports.default = is;
++// module.exports.assert = exports.assert;

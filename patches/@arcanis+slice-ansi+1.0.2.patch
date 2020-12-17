@@ -1,0 +1,10 @@
+diff --git a/node_modules/@arcanis/slice-ansi/index.js b/node_modules/@arcanis/slice-ansi/index.js
+index 9f10150..9c98a05 100644
+--- a/node_modules/@arcanis/slice-ansi/index.js
++++ b/node_modules/@arcanis/slice-ansi/index.js
+@@ -1,4 +1,4 @@
+-const GraphemeSplitter = require(`grapheme-splitter`);
++const GraphemeSplitter = require('grapheme-splitter');
+ 
+ const ANSI_SEQUENCE = /^(.*?)(\x1b\[[^m]+m|\x1b\]8;;.*?(\x1b\\|\u0007))/;
+ const splitter = new GraphemeSplitter();

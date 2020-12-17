@@ -1,0 +1,32 @@
+<script type="module">
+	import run, { memfs } from "./dist/yarn-browser.es.js";
+
+	(async () => {
+		memfs.mkdirSync("/tmp");
+		memfs.mkdirSync("/app");
+		memfs.writeFileSync(
+			"/app/package.json",
+			JSON.stringify(
+				{
+					dependencies: {
+						"lodash-es": "^4.17.15",
+					},
+				},
+				null,
+				2
+			)
+		);
+
+		const dir = "/app";
+
+		console.log("Starting Yarn")
+		console.time("Finished");
+		await run({ dir, fs: memfs });
+		console.timeEnd("Finished");
+
+		console.log(memfs.readdirSync("/app"));
+		console.log(memfs.readdirSync("/app/node_modules"));
+	})().catch((e) => {
+		console.error(e);
+	});
+</script>

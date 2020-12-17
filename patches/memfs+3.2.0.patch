@@ -1,0 +1,22 @@
+diff --git a/node_modules/memfs/lib/volume.js b/node_modules/memfs/lib/volume.js
+index 6dd4291..7c2cc29 100644
+--- a/node_modules/memfs/lib/volume.js
++++ b/node_modules/memfs/lib/volume.js
+@@ -542,7 +542,7 @@ var Volume = /** @class */ (function () {
+     };
+     Volume.prototype.newFdNumber = function () {
+         var releasedFd = this.releasedFds.pop();
+-        return typeof releasedFd === 'number' ? releasedFd : Volume.fd--;
++        return typeof releasedFd === 'number' ? releasedFd : Volume.fd++;
+     };
+     Volume.prototype.createNode = function (isDirectory, perm) {
+         if (isDirectory === void 0) { isDirectory = false; }
+@@ -1805,7 +1805,7 @@ var Volume = /** @class */ (function () {
+      * @type {number}
+      * @todo This should not be static, right?
+      */
+-    Volume.fd = 0x7fffffff;
++    Volume.fd = 10;
+     return Volume;
+ }());
+ exports.Volume = Volume;
