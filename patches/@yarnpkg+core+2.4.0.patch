@@ -24,6 +24,19 @@ index 345968f..90ce843 100644
          this.configuration.triggerHook(hooks => {
              return hooks.globalHashGeneration;
          }, this, (data) => {
+diff --git a/node_modules/@yarnpkg/core/lib/StreamReport.js b/node_modules/@yarnpkg/core/lib/StreamReport.js
+index 587c9a1..8b4ab6f 100644
+--- a/node_modules/@yarnpkg/core/lib/StreamReport.js
++++ b/node_modules/@yarnpkg/core/lib/StreamReport.js
+@@ -111,7 +111,7 @@ class StreamReport extends Report_1.Report {
+             throw new Error(`Assertion failed: Invalid progress bar style`);
+         this.progressStyle = PROGRESS_STYLES[styleName];
+         const PAD_LEFT = `➤ YN0000: ┌ `.length;
+-        const maxWidth = Math.max(0, Math.min(process.stdout.columns - PAD_LEFT, 80));
++        const maxWidth = Math.max(0, Math.min(80 - PAD_LEFT, 80));
+         this.progressMaxScaledSize = Math.floor(this.progressStyle.size * maxWidth / 80);
+     }
+     static async start(opts, cb) {
 diff --git a/node_modules/@yarnpkg/core/lib/httpUtils.js b/node_modules/@yarnpkg/core/lib/httpUtils.js
 index c720ddd..f0cb0ab 100644
 --- a/node_modules/@yarnpkg/core/lib/httpUtils.js

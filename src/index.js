@@ -1,8 +1,16 @@
-import { Cache, Configuration, Project, Report } from "@yarnpkg/core";
+import {
+	Cache,
+	Configuration,
+	Project,
+	Report,
+	StreamReport,
+} from "@yarnpkg/core";
 import NpmPlugin from "@yarnpkg/plugin-npm";
 import GitPlugin from "@yarnpkg/plugin-git";
 import GithubPlugin from "@yarnpkg/plugin-github";
 import NodeModulesPlugin from "@yarnpkg/plugin-node-modules";
+
+import { Writable } from "stream";
 
 import _memfs from "memfs";
 export const memfs = _memfs;
@@ -51,6 +59,20 @@ class MyReport extends Report {
 	async finalize() {}
 }
 
+class StringStream extends Writable {
+	constructor() {
+		super();
+		this.chunks = [];
+	}
+	toString() {
+		return Buffer.concat(this.chunks).toString("utf8");
+	}
+	_write(chunk, enc, next) {
+		this.chunks.push(chunk);
+		next();
+	}
+}
+
 const plugins = new Map([
 	[`@yarnpkg/plugin-npm`, NpmPlugin.default ?? NpmPlugin],
 	[`@yarnpkg/plugin-git`, GitPlugin.default ?? GitPlugin],
@@ -61,7 +83,7 @@ const plugins = new Map([
 	],
 ]);
 
-export default async ({ fs, dir }) => {
+export async function run({ fs, dir }) {
 	fakeFS.__override(fs);
 
 	const configuration = Configuration.create(dir, dir, plugins);
@@ -76,9 +98,22 @@ export default async ({ fs, dir }) => {
 	const { project } = await Project.find(configuration, dir);
 	const cache = await Cache.find(configuration);
 
-	await project.install({ cache, report: new MyReport() });
-};
+	const stdout = new StringStream();
 
+	await StreamReport.start(
+		{
+			configuration,
+			json: false,
+			stdout,
+			includeLogs: true,
+		},
+		async (report) => {
+			await project.install({ cache, report });
+		}
+	);
+
+	console.log(stdout.toString());
+}
 
 // import { tgzUtils, structUtils } from "@yarnpkg/core";
 // import { Buffer } from "buffer";

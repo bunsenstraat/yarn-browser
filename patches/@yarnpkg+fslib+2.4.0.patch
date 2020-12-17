@@ -1,3 +1,52 @@
+diff --git a/node_modules/@yarnpkg/fslib/lib/ZipFS.js b/node_modules/@yarnpkg/fslib/lib/ZipFS.js
+index 34453f3..f96794c 100644
+--- a/node_modules/@yarnpkg/fslib/lib/ZipFS.js
++++ b/node_modules/@yarnpkg/fslib/lib/ZipFS.js
+@@ -674,11 +674,11 @@ class ZipFS extends FakeFS_1.BasePortableFakeFS {
+         const rc = this.libzip.statIndex(this.zip, index, 0, 0, stat);
+         if (rc === -1)
+             throw this.makeLibzipError(this.libzip.getError(this.zip));
+-        const size = this.libzip.struct.statCompSize(stat);
+-        const compressionMethod = this.libzip.struct.statCompMethod(stat);
++        // use wasm instead of browserify zlib
++        const size = this.libzip.struct.statSize(stat);
+         const buffer = this.libzip.malloc(size);
+         try {
+-            const file = this.libzip.fopenIndex(this.zip, index, 0, this.libzip.ZIP_FL_COMPRESSED);
++            const file = this.libzip.fopenIndex(this.zip, index, 0, 0);
+             if (file === 0)
+                 throw this.makeLibzipError(this.libzip.getError(this.zip));
+             try {
+@@ -691,28 +691,7 @@ class ZipFS extends FakeFS_1.BasePortableFakeFS {
+                     throw new Error(`Overread`);
+                 const memory = this.libzip.HEAPU8.subarray(buffer, buffer + size);
+                 const data = Buffer.from(memory);
+-                if (compressionMethod === 0) {
+-                    this.fileSources.set(index, data);
+-                    return data;
+-                }
+-                else if (opts.asyncDecompress) {
+-                    return new Promise((resolve, reject) => {
+-                        zlib_1.default.inflateRaw(data, (error, result) => {
+-                            if (error) {
+-                                reject(error);
+-                            }
+-                            else {
+-                                this.fileSources.set(index, result);
+-                                resolve(result);
+-                            }
+-                        });
+-                    });
+-                }
+-                else {
+-                    const decompressedData = zlib_1.default.inflateRawSync(data);
+-                    this.fileSources.set(index, decompressedData);
+-                    return decompressedData;
+-                }
++                return data;
+             }
+             finally {
+                 this.libzip.fclose(file);
 diff --git a/node_modules/@yarnpkg/fslib/lib/ZipOpenFS.js b/node_modules/@yarnpkg/fslib/lib/ZipOpenFS.js
 index caa1dc6..d7cdf3e 100644
 --- a/node_modules/@yarnpkg/fslib/lib/ZipOpenFS.js
