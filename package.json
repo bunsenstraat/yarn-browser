@@ -3,32 +3,27 @@
   "name": "@mischnic/yarn-browser",
   "version": "0.0.1",
   "license": "MIT",
-  "source": "src/index.js",
-  "module": "dist/yarn-browser.es.js",
-  "devDependencies": {
-    "@babel/core": "^7.12.10",
-    "@yarnpkg/core": "^2.4.0",
-    "@yarnpkg/plugin-git": "^2.3.0",
-    "@yarnpkg/plugin-github": "^2.1.2",
-    "@yarnpkg/plugin-node-modules": "^2.3.0",
-    "@yarnpkg/plugin-npm": "^2.4.0",
-    "@yarnpkg/plugin-pack": "^2.2.3",
-    "@yarnpkg/plugin-pnp": "^2.4.0",
-    "memfs": "^3.2.0",
-    "parcel": "^2.0.0-nightly.481",
-    "patch-package": "^6.2.2"
-  },
-  "targets": {
-    "module": {
-      "includeNodeModules": true
-    }
-  },
   "scripts": {
     "build": "parcel build . --no-source-maps",
-    "build:diag": "BUNDLE_BUDDY=1 yarn parcel build .",
+    "build:diag": "BUNDLE_BUDDY=1 yarn parcel build . --target module",
+    "build:standalone": "BUNDLE_BUDDY=1 yarn parcel build . --target standalone",
     "test:node": "node test-node.js",
     "test:memfs": "node test-memfs.js",
     "postinstall": "patch-package"
+  },
+  "source": "src/index.js",
+  "module": "dist/yarn-browser.es.js",
+  "standalone": "dist/yarn-browser-standalone.es.js",
+  "targets": {
+    "module": {
+      "includeNodeModules": {
+        "@msgpack/msgpack": false,
+        "buffer": false
+      }
+    },
+    "standalone": {
+      "outputFormat": "esmodule"
+    }
   },
   "alias": {
     "clipanion": "./polyfills/clipanion.js",
@@ -45,10 +40,24 @@
     "dist/index.es.js"
   ],
   "browserslist": "Chrome 75",
+  "dependencies": {
+    "@msgpack/msgpack": "^2.3.0",
+    "buffer": "^5.5.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@yarnpkg/core": "^2.4.0",
+    "@yarnpkg/plugin-git": "^2.3.0",
+    "@yarnpkg/plugin-github": "^2.1.2",
+    "@yarnpkg/plugin-node-modules": "^2.3.0",
+    "@yarnpkg/plugin-npm": "^2.4.0",
+    "@yarnpkg/plugin-pack": "^2.2.3",
+    "@yarnpkg/plugin-pnp": "^2.4.0",
+    "memfs": "^3.2.0",
+    "parcel": "^2.0.0-nightly.481",
+    "patch-package": "^6.2.2"
+  },
   "resolutions": {
     "semver": "7.3.4"
-  },
-  "dependencies": {
-    "@msgpack/msgpack": "^2.3.0"
   }
 }
