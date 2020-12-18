@@ -10,12 +10,13 @@ import NpmPlugin from "@yarnpkg/plugin-npm";
 // import GithubPlugin from "@yarnpkg/plugin-github";
 import NodeModulesPlugin from "@yarnpkg/plugin-node-modules";
 
-import { Writable } from "stream";
+const { Writable } = require("stream");
 
 import _memfs from "memfs";
 export const memfs = _memfs;
 
 import fakeFS from "./fs.cjs";
+import { __setRegistry } from "got";
 
 // class MyReport extends Report {
 // 	reportCacheHit(locator) {}
@@ -83,17 +84,22 @@ const plugins = new Map([
 	],
 ]);
 
+const DEFAULT_REGISTRY = "registry.npmjs.cf";
+
 export async function run({ fs, dir, options = {} }) {
 	fakeFS.__override(fs);
+
+	let registry = options.npmRegistryServer ?? DEFAULT_REGISTRY;
+	__setRegistry(registry);
 
 	const configuration = Configuration.create(dir, dir, plugins);
 	configuration.useWithSource(
 		"override",
 		{
 			nodeLinker: "node-modules",
-			npmRegistryServer: "https://registry.npmjs.cf",
 			compressionLevel: 0,
 			...options,
+			npmRegistryServer: "https://" + registry,
 		},
 		dir
 	);

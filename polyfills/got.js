@@ -18,6 +18,12 @@ function fetchWithTimeout(timeoutDuration, url, options) {
 	);
 }
 
+let registry;
+
+export function __setRegistry(r) {
+	registry = r;
+}
+
 export function extend(options) {
 	let timeoutDuration = options?.timeout?.socket;
 	let responseType = options?.responseType ?? "text";
@@ -29,7 +35,7 @@ export function extend(options) {
 	return (url) =>
 		fetchWithTimeout(
 			timeoutDuration,
-			url.replace("registry.npmjs.org", "registry.npmjs.cf"),
+			url.replace("registry.npmjs.org", registry),
 			fetchOptions
 		)
 			.then((res) => {
