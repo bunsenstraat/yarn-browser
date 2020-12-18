@@ -158,7 +158,13 @@ module.exports = new Proxy(
       if (prop === "__override") {
         return __override;
       } else if (methods.includes(prop)) {
-        return (...args) => fs[prop](...args);
+        return (...args) => {
+          if (fs[prop] == null) {
+            throw new Error(prop);
+          } else {
+            return fs[prop](...args);
+          }
+        };
       } else if (prop === "constants") {
         return constants;
       }
