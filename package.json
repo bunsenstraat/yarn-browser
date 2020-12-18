@@ -9,7 +9,7 @@
     "build:standalone": "BUNDLE_BUDDY=1 yarn parcel build . --target standalone",
     "test:node": "node test-node.js",
     "test:memfs": "node test-memfs.js",
-    "postinstall": "patch-package"
+    "prepare": "patch-package"
   },
   "source": "src/index.js",
   "module": "dist/yarn-browser.es.js",
@@ -18,7 +18,14 @@
     "module": {
       "includeNodeModules": {
         "@msgpack/msgpack": false,
-        "buffer": false
+        "assert": false,
+        "zlib": false,
+        "buffer": false,
+        "js-yaml": false,
+        "pako": false,
+        "stream": false,
+        "readable-stream": false,
+        "semver": false
       }
     },
     "standalone": {
@@ -27,6 +34,7 @@
   },
   "alias": {
     "clipanion": "./polyfills/clipanion.js",
+    "crypto": "./polyfills/crypto.js",
     "fs": "./src/fs.cjs",
     "got": "./polyfills/got.js",
     "url": "./polyfills/url.js",
@@ -42,7 +50,12 @@
   "browserslist": "Chrome 75",
   "dependencies": {
     "@msgpack/msgpack": "^2.3.0",
-    "buffer": "^5.5.0"
+    "assert": "^2.0.0",
+    "buffer": "^5.5.0",
+    "js-yaml": "^3.13.1",
+    "pako": "~1.0.5",
+    "semver": "^7.3.4",
+    "readable-stream": "^3.6.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",

@@ -1,5 +1,5 @@
 import * as msgpack from "@msgpack/msgpack";
-import { Buffer } from "buffer";
+const { Buffer } = require("buffer");
 
 export let serialize = (v) =>
   Buffer.from(msgpack.encode(v, { extensionCodec }));
