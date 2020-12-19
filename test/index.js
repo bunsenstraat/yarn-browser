@@ -1,4 +1,4 @@
-import { run, memfs } from "./dist/yarn-browser-standalone.es.js";
+import { run, memfs } from "../dist/yarn-browser-standalone.es.js";
 import {
 	openDB,
 	deleteDB,
@@ -108,20 +108,24 @@ globalThis.fs = memfs;
 	await Cache.restoreCache();
 	console.log("Starting Yarn...");
 	console.time("Finished in");
-	let { report, messages } = await run({ dir, fs: memfs });
+	let { report } = await run({
+		dir,
+		fs: memfs,
+		options: {},
+		progress({ type, indent, data, displayName }) {
+			console.log(
+				`%c[${displayName}] ${indent} ${data}`,
+				`font-family: monospace;${
+					type === "error" ? "color: red;" : ""
+				}`
+			);
+		},
+	});
 	console.timeEnd("Finished in");
 
-	console.log(report);
-	for (let { type, indent, data, displayName } of messages) {
-		let msg = `[${displayName}] ${indent} ${data}`;
-		console.log(
-			"%c" + msg,
-			`font-family: monospace;${type === "error" ? "color: red;" : ""}`
-		);
-	}
 	if (report.reportedErrors.size > 0) throw [...report.reportedErrors][0];
 
-	console.log(memfs.readdirSync("/app/node_modules"));
+	console.log("node_modules:", memfs.readdirSync("/app/node_modules"));
 
 	await Cache.saveLockfile();
 	await Cache.saveCache();

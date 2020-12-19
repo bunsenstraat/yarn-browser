@@ -4,14 +4,13 @@
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {
-    "build": "parcel build . --no-source-maps",
-    "build:diag": "BUNDLE_BUDDY=1 yarn parcel build . --target module",
-    "build:standalone": "BUNDLE_BUDDY=1 yarn parcel build . --target standalone",
+    "build": "parcel build src/index.js --target module --no-source-maps --no-minify",
+    "build:diag": "BUNDLE_BUDDY=1 parcel build src/index.js --target module",
+    "build:standalone": "parcel build src/standalone.js --target standalone --no-source-maps  --no-minify",
     "test:node": "node test-node.js",
     "test:memfs": "node test-memfs.js",
     "prepare": "patch-package"
   },
-  "source": "src/index.js",
   "module": "dist/yarn-browser.es.js",
   "standalone": "dist/yarn-browser-standalone.es.js",
   "targets": {
