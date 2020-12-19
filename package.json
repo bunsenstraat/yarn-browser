@@ -44,8 +44,12 @@
     "enquirer": false
   },
   "files": [
-    "dist/index.es.js"
+    "dist/dist/yarn-browser.es.js",
+    "dist/dist/yarn-browser-standalone.es.js"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "browserslist": "Chrome 75",
   "dependencies": {
     "@msgpack/msgpack": "^2.3.0",
