@@ -44,8 +44,8 @@
     "enquirer": false
   },
   "files": [
-    "dist/dist/yarn-browser.es.js",
-    "dist/dist/yarn-browser-standalone.es.js"
+    "dist/yarn-browser-standalone.es.js",
+    "dist/yarn-browser.es.js"
   ],
   "publishConfig": {
     "access": "public"
