@@ -4,7 +4,8 @@
   "version": "0.0.2",
   "license": "MIT",
   "scripts": {
-    "build": "parcel build src/index.js --target module --no-source-maps --no-minify",
+    "build": "yarn build:lib --no-cache && yarn build:standalone --no-cache",
+    "build:lib": "parcel build src/index.js --target module --no-source-maps --no-minify",
     "build:diag": "BUNDLE_BUDDY=1 parcel build src/index.js --target module",
     "build:standalone": "parcel build src/standalone.js --target standalone --no-source-maps  --no-minify",
     "test:node": "node test-node.js",

@@ -1,0 +1,17 @@
+diff --git a/node_modules/which/which.js b/node_modules/which/which.js
+index 82afffd..a5b053e 100644
+--- a/node_modules/which/which.js
++++ b/node_modules/which/which.js
+@@ -18,9 +18,9 @@ const getPathInfo = (cmd, opt) => {
+     : (
+       [
+         // windows always checks the cwd first
+-        ...(isWindows ? [process.cwd()] : []),
+-        ...(opt.path || process.env.PATH ||
+-          /* istanbul ignore next: very unusual */ '').split(colon),
++        // ...(isWindows ? [process.cwd()] : []),
++        // ...(opt.path || process.env.PATH ||
++        //  /* istanbul ignore next: very unusual */ '').split(colon),
+       ]
+     )
+   const pathExtExe = isWindows
