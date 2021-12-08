@@ -62,7 +62,7 @@
     "semver": "^7.3.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.10",
+    "@babel/core": "^7.14.3",
     "@yarnpkg/core": "^2.4.0",
     "@yarnpkg/plugin-git": "^2.3.0",
     "@yarnpkg/plugin-github": "^2.1.2",
@@ -70,9 +70,9 @@
     "@yarnpkg/plugin-npm": "^2.4.0",
     "@yarnpkg/plugin-pack": "^2.2.3",
     "@yarnpkg/plugin-pnp": "^2.4.0",
-    "memfs": "^3.2.0",
+    "memfs": "^3.2.2",
     "parcel": "^2.0.0-nightly.481",
-    "patch-package": "^6.2.2"
+    "patch-package": "^6.4.7"
   },
   "resolutions": {
     "semver": "7.3.4"

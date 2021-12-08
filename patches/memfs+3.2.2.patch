@@ -10,7 +10,7 @@ index d27ef23..d9c85d4 100644
 +    _setImmediate = (f) => Promise.resolve().then(f);
  exports.default = _setImmediate;
 diff --git a/node_modules/memfs/lib/volume.js b/node_modules/memfs/lib/volume.js
-index 6dd4291..7c2cc29 100644
+index 1af9b10..f04ecb5 100644
 --- a/node_modules/memfs/lib/volume.js
 +++ b/node_modules/memfs/lib/volume.js
 @@ -542,7 +542,7 @@ var Volume = /** @class */ (function () {

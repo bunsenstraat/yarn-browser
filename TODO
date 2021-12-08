@@ -1,1 +1,2 @@
 - @yarnpkg/*: module builds
+- allow pnp mode
