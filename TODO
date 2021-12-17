@@ -1,2 +1,3 @@
 - @yarnpkg/*: module builds
 - allow pnp mode
+- leverage global cache

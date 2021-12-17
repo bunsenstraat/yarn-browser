@@ -90,9 +90,10 @@ globalThis.fs = memfs;
 		JSON.stringify(
 			{
 				dependencies: {
+					"core-js": "^3.0.0",
 					// "lodash-es": "^4.17.15",
 					// "parcel": "nightly",
-					react: "latest",
+					react: "^17.0.0",
 					// "react-dom": "latest",
 				},
 			},

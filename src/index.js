@@ -46,6 +46,7 @@ export async function run({ fs, dir, options = {}, progress = () => {} }) {
 			compressionLevel: 0,
 			...options,
 			npmRegistryServer: "https://" + registry,
+			enableScripts: false
 		},
 		dir
 	);
