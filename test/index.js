@@ -27,7 +27,7 @@ async function getDB() {
 	});
 }
 
-const YARN_CACHE_DIR = "/app/.yarn/cache";
+const YARN_CACHE_DIR = "/.yarn-global/cache";
 const YARN_LOCKFILE = "/app/yarn.lock";
 const Cache = {
 	async saveCache() {
@@ -40,7 +40,6 @@ const Cache = {
 
 		const db = await getDB();
 		const tx = db.transaction(IDB_STORE_CACHE, "readwrite");
-		await tx.store.clear();
 		await Promise.all([
 			...files.map(([name, data]) =>
 				tx.store.put({
@@ -112,7 +111,10 @@ globalThis.fs = memfs;
 	let { report } = await run({
 		dir,
 		fs: memfs,
-		options: {},
+		options: {
+			enableGlobalCache: true,
+			globalFolder: "/.yarn-global",
+		},
 		progress({ type, indent, data, displayName }) {
 			console.log(
 				`%c[${displayName}] ${indent} ${data}`,
