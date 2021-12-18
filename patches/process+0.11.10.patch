@@ -1,0 +1,30 @@
+diff --git a/node_modules/process/browser.js b/node_modules/process/browser.js
+index d059362..51a98a5 100644
+--- a/node_modules/process/browser.js
++++ b/node_modules/process/browser.js
+@@ -111,7 +111,7 @@ function drainQueue() {
+     if (draining) {
+         return;
+     }
+-    var timeout = runTimeout(cleanUpNextTick);
++    queueMicrotask(cleanUpNextTick);
+     draining = true;
+ 
+     var len = queue.length;
+@@ -128,7 +128,6 @@ function drainQueue() {
+     }
+     currentQueue = null;
+     draining = false;
+-    runClearTimeout(timeout);
+ }
+ 
+ process.nextTick = function (fun) {
+@@ -140,7 +139,7 @@ process.nextTick = function (fun) {
+     }
+     queue.push(new Item(fun, args));
+     if (queue.length === 1 && !draining) {
+-        runTimeout(drainQueue);
++        queueMicrotask(drainQueue);
+     }
+ };
+ 
